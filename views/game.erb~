@@ -1,0 +1,60 @@
+
+
+  <div id='game'>
+  
+  <% @check = comparescores(session[:player_total_scores],session[:computer_total_scores],session[:stay]) %>
+  <% if @check != ''  %>
+  <% @button_visible = false %>
+  <p style='color:red;'> <%= @check %>. <%= update_money %></p>
+  <% if session[:player_pot] > 0 %>
+  <form action = '/bet' method = 'post' >
+  <button>Play next turn ?</button>
+  </form>
+  <% else %>
+  
+  <p style = 'color:red;'><%= session[:player_name] %> currently have no money</p>
+  <form action ='/restart' method = 'post' >
+  <button>Play again ?</button>
+  </form>
+  <% end %>
+  <% else %>
+   <%= session[:player_name] %> has <%= session[:player_pot] %> money
+  <% end %>
+  
+
+   <div class = 'display'><h3><%= session[:player_name] %> has <%= session[:player_total_scores] %> total scores.
+     <% if !@initial %>
+       Computer score: <%= session[:computer_total_scores] %>
+     <% end %>
+     </h3>
+     <% for @item in session[:player_cards] %>
+     <%= print_images(@item) %>
+
+     <% end %>
+   </div>
+   
+   <div class = 'display'><h3>Computer cards:</h3><% if @initial %>
+     
+     <%="<img src='/images/Cards/0.png' alt='0.png'>" %>
+     <%= print_images(session[:computer_cards][0]) %>
+     <% else %>
+   
+   <% for @item in session[:computer_cards] %>
+   <%= print_images(@item) %>
+
+   <% end %>
+   <% end %>
+   </div>
+    <br>
+
+
+
+    <% if @button_visible %>
+   <button id ='hit'>Hits</button>
+   <button id = 'stay'>Stay</button>
+   <% end %>
+
+
+  
+</div>
+ 

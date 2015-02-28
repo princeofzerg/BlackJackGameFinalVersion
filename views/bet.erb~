@@ -1,0 +1,7 @@
+<%= @error %>
+<p>You currently have : <%=  session[:player_pot] %>. Please enter amount between 0 and
+<%=  session[:player_pot] %> </p>
+<form action = '/bet' method = 'post'>
+  <input type = 'text' name = 'bet_amount' />
+  <input type = 'submit' name = 'submit' />
+</form>
